@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 6f; // Speed at which the player moves
+    public float moveSpeed = 4f; // Speed at which the player moves
 
     private Vector3 targetPosition; // Target position for player movement
     private Rigidbody rb;
@@ -13,20 +13,35 @@ public class PlayerController : MonoBehaviour
     private bool isWrong;
     public AudioSource breakAudio;
     public AudioSource deathAudio;
+    public bool isFinish;
+    AudioManager audioManager;
+    private Vector2 startTouchPosition;
+    public LayerMask groundLayer;
+    public bool isGrounded;
+    public GameObject gameOver;
+    public float deathHeight = -2.0f;
 
     private void Start()
     {
+        targetPosition = transform.position;
         rb = GetComponent<Rigidbody>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         rb.freezeRotation = true;
         animator = GetComponent<Animator>();
         isRight = false;
         isWrong = false;
+        isFinish = false;
+
+
     }
     private void Update()
     {
         // Move the player forward automatically
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-
+        if (transform.position.y < deathHeight)
+        {
+            Die();
+        }
         // Handle player input
         HandleInput();
         PlayerAnimation();
@@ -34,6 +49,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInput()
     {
+        isGrounded = Physics.Raycast(transform.position,Vector3.down,0.1f,groundLayer);
+        /*
         // Check for horizontal input
         float horizontalInput = Input.GetAxis("Horizontal");
 
@@ -44,7 +61,38 @@ public class PlayerController : MonoBehaviour
         targetPosition = transform.position + movementDirection * moveSpeed * Time.deltaTime;
 
         // Move the player to the target position
-        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.5f);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.5f); */
+       //mobile input
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            // Calculate horizontal input based on touch position
+            float horizontalInput = 0f;
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                // Record the touch position at the beginning of the touch
+                startTouchPosition = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+                // Calculate the horizontal movement based on touch position delta
+                float touchDeltaX = touch.position.x - startTouchPosition.x;
+
+                // Normalize the movement to be between -1 and 1
+                horizontalInput = Mathf.Clamp(touchDeltaX / Screen.width, -1f, 1f);
+            }
+
+            // Calculate movement direction based on input
+            Vector3 movementDirection = new Vector3(horizontalInput, 0f, 0f).normalized;
+
+            // Calculate target position for player movement
+            targetPosition = transform.position + movementDirection * moveSpeed * Time.deltaTime;
+
+            // Move the player to the target position
+            transform.position = Vector3.Lerp(transform.position, targetPosition, 0.5f);
+        }//mobbile input End
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -58,6 +106,14 @@ public class PlayerController : MonoBehaviour
         {
             isWrong = true;
             deathAudio.Play();
+        }
+        else if(collision.gameObject.CompareTag("Finish")) 
+        {
+            isFinish = true;
+            animator.SetTrigger("win");
+            audioManager.PlaySfx(audioManager.winSound);
+            moveSpeed = 0f;
+            
         }
     }
     private void PlayerAnimation()
@@ -75,6 +131,7 @@ public class PlayerController : MonoBehaviour
         else if (isWrong)
         {
             StartCoroutine(PlayerDeathAnimation());
+            
         }
     }
     private IEnumerator PlayRunAnimationAfterKick()
@@ -92,6 +149,13 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("death");
         Debug.Log("death trigger");
         moveSpeed = 0f;
+        Die();
 
+    }
+    public void Die()
+    {
+        rb.velocity = Vector3.zero;
+        
+        gameOver.SetActive(true);
     }
 }

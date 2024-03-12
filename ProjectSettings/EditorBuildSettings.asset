@@ -4,7 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: b611ef540e12f7d46a16cac7a1f90cf1
+  - enabled: 1
+    path: Assets/Scenes/Level 1.unity
+    guid: efa38b95240d5df4fb91f9eb91c11cbc
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: 2f4b70b93c2b9b647906a85039b1f90e, type: 2}

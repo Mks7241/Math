@@ -10,15 +10,24 @@ public class AudioManager : MonoBehaviour
 
     [Header("------AudioClip--------")]
     [SerializeField] AudioClip background;
-    [SerializeField] AudioClip breakWall;
-    [SerializeField] AudioClip death;
+    public AudioClip breakWall;
+    public AudioClip death;
+    public AudioClip winSound;
+
     // Start is called before the first frame update
     void Start()
     {
         musicSource.clip = background;
         musicSource.Play();
+        Debug.Log("music");
         
     }
+    public void PlaySfx(AudioClip clip)
+    {
+        sfxSource.clip = clip;
+        sfxSource.Play();
+    }
+   
 
     // Update is called once per frame
     void Update()

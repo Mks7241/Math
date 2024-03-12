@@ -26,7 +26,7 @@ public class Break : MonoBehaviour
             if (isbroken == true)
             {
                 rb.isKinematic = false;
-                Invoke("DestroyPiece", 3);
+                //Invoke("DestroyPiece", 3);
                 Scatter();
             }
         }
