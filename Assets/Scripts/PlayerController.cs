@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 4f; // Speed at which the player moves
-
     private Vector3 targetPosition; // Target position for player movement
     private Rigidbody rb;
     private Animator animator;
@@ -43,25 +42,14 @@ public class PlayerController : MonoBehaviour
             Die();
         }
         // Handle player input
+        HandleMobileInput();
         HandleInput();
         PlayerAnimation();
     }
 
-    private void HandleInput()
+    private void HandleMobileInput()
     {
         isGrounded = Physics.Raycast(transform.position,Vector3.down,0.1f,groundLayer);
-        /*
-        // Check for horizontal input
-        float horizontalInput = Input.GetAxis("Horizontal");
-
-        // Calculate movement direction based on input
-        Vector3 movementDirection = new Vector3(horizontalInput, 0f, 0f).normalized;
-
-        // Calculate target position for player movement
-        targetPosition = transform.position + movementDirection * moveSpeed * Time.deltaTime;
-
-        // Move the player to the target position
-        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.5f); */
        //mobile input
         if (Input.touchCount > 0)
         {
@@ -93,6 +81,21 @@ public class PlayerController : MonoBehaviour
             // Move the player to the target position
             transform.position = Vector3.Lerp(transform.position, targetPosition, 0.5f);
         }//mobbile input End
+    }
+    public void HandleInput()
+    {
+        
+        // Check for horizontal input
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        // Calculate movement direction based on input
+        Vector3 movementDirection = new Vector3(horizontalInput, 0f, 0f).normalized;
+
+        // Calculate target position for player movement
+        targetPosition = transform.position + movementDirection * moveSpeed * Time.deltaTime;
+
+        // Move the player to the target position
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.5f); 
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -149,7 +152,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("death");
         Debug.Log("death trigger");
         moveSpeed = 0f;
-        Die();
+        //Die();
 
     }
     public void Die()
