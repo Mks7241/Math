@@ -10,9 +10,10 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private bool isRight;
     private bool isWrong;
-    public AudioSource breakAudio;
-    public AudioSource deathAudio;
+    //public AudioSource breakAudio;
+    //public AudioSource deathAudio;
     public bool isFinish;
+    public bool isDead;
     AudioManager audioManager;
     private Vector2 startTouchPosition;
     public LayerMask groundLayer;
@@ -22,7 +23,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        targetPosition = transform.position;
+        //targetPosition = transform.position;
+        transform.position = Vector3.zero;
         rb = GetComponent<Rigidbody>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         rb.freezeRotation = true;
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
         isRight = false;
         isWrong = false;
         isFinish = false;
+        isDead = false;
 
 
     }
@@ -41,10 +44,15 @@ public class PlayerController : MonoBehaviour
         {
             Die();
         }
+        else if(isDead)
+        {
+            Die();
+        }
         // Handle player input
         HandleMobileInput();
         HandleInput();
         PlayerAnimation();
+       
     }
 
     private void HandleMobileInput()
@@ -102,13 +110,15 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Block"))
         {
             isRight = true;
-            Debug.Log("block detected");
-            breakAudio.Play();
+            //Debug.Log("block detected");
+            //breakAudio.Play();
+            audioManager.PlaySfx(audioManager.breakWall);
         }
         else if (collision.gameObject.CompareTag("wrongBlock"))
         {
             isWrong = true;
-            deathAudio.Play();
+            //deathAudio.Play();
+            audioManager.PlaySfx(audioManager.death);
         }
         else if(collision.gameObject.CompareTag("Finish")) 
         {
@@ -126,7 +136,7 @@ public class PlayerController : MonoBehaviour
 
             animator.SetTrigger("kick");
            // breakAudio.Play();
-            Debug.Log("set trigger kick");
+            //Debug.Log("set trigger kick");
             isRight = false;
             StartCoroutine(PlayRunAnimationAfterKick());
            
@@ -144,15 +154,16 @@ public class PlayerController : MonoBehaviour
 
         // Trigger the run animation after the kick animation has played
         animator.SetTrigger("run");
-        Debug.Log("Set trigger Run");
+        //Debug.Log("Set trigger Run");
     }
     private IEnumerator PlayerDeathAnimation()
     {
         yield return new WaitForSeconds(0.01f);
         animator.SetTrigger("death");
-        Debug.Log("death trigger");
+       // Debug.Log("death trigger");
         moveSpeed = 0f;
         //Die();
+        isDead = true;
 
     }
     public void Die()

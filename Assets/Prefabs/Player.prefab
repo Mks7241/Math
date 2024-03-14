@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: bd4e99c97fc302543bff2f10ebc7e1b7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.1524806
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd4e99c97fc302543bff2f10ebc7e1b7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0855732
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd4e99c97fc302543bff2f10ebc7e1b7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.1538157
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd4e99c97fc302543bff2f10ebc7e1b7,
         type: 3}
@@ -179,3 +179,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  breakAudio: {fileID: 0}
+  deathAudio: {fileID: 0}
+  isFinish: 0
+  isDead: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGrounded: 0
+  gameOver: {fileID: 0}
+  deathHeight: -2

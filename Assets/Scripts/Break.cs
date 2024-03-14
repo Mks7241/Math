@@ -13,6 +13,7 @@ public class Break : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         
