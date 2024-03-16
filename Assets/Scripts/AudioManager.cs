@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.clip = background;
         musicSource.Play();
-        Debug.Log("music");
+        //Debug.Log("music");
         
     }
     public void PlaySfx(AudioClip clip)

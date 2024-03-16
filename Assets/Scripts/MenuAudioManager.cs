@@ -9,8 +9,12 @@ public class MenuAudioManager : MonoBehaviour
     public AudioSource sfxSource;
     [Header("----SfxSource----")]
     public AudioClip background; 
-    public AudioClip click; 
+    public AudioClip click;
 
+    private void Start()
+    {
+        PlayMenuBackgroundMusic();
+    }
     public void PlayMenuBackgroundMusic()
     {
         musicSource.clip = background;

@@ -77,18 +77,18 @@ public class MathGate : MonoBehaviour
              int wrongAnswer = correctAnswer + Random.Range(-5, 6); // Generate a wrong answer near the correct one
              wrongBlock.GetComponent<TextMeshPro>().text = wrongAnswer.ToString();
          }*/
-        int wrongAnswer = correctAnswer + Random.Range(-11, 10);
+        int wrongAnswer = correctAnswer + Random.Range(-6, 5);
         if (wrongAnswer == correctAnswer)
         {
             wrongAnswer += 1;
         }
        wrongBlockText1.GetComponent<TextMeshPro>().text = wrongAnswer.ToString();
-        int wrongAnswer2 = correctAnswer + Random.Range(-8, 9);
+        int wrongAnswer2 = correctAnswer + Random.Range(-6, 5);
         if (wrongAnswer2 == correctAnswer)
         {
-            wrongAnswer2 += 1;
+            wrongAnswer2 += -1;
         }
-       wrongBlockText2.GetComponent<TextMeshPro>().text = wrongAnswer2.ToString();
+        wrongBlockText2.GetComponent<TextMeshPro>().text = wrongAnswer2.ToString();
     }
 
     void SwapBlockPositions()

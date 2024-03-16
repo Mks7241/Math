@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 4f; // Speed at which the player moves
+    public float moveSpeed = 3f;
+    public float maxMoveSpeed = 5.0f;
     private Vector3 targetPosition; // Target position for player movement
     private Rigidbody rb;
     private Animator animator;
@@ -20,6 +21,9 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     public GameObject gameOver;
     public float deathHeight = -2.0f;
+    //Swipe lane
+    private int desiredLane = 1;
+    public float laneDistance = 5f;
 
     private void Start()
     {
@@ -49,12 +53,47 @@ public class PlayerController : MonoBehaviour
             Die();
         }
         // Handle player input
-        HandleMobileInput();
-        HandleInput();
+        //HandleMobileInput();
+        //HandleMobileInput();
+        //HandleInput();
+        HandleSwipeInput();
         PlayerAnimation();
-       
-    }
+        
 
+    }
+    private void HandleSwipeInput()
+    {
+        if (SwipeManager.swipeRight)
+        {
+            desiredLane = Mathf.Clamp(desiredLane + 1, 0, 2);
+        }
+        else if (SwipeManager.swipeLeft)
+        {
+            desiredLane = Mathf.Clamp(desiredLane - 1, 0, 2);
+        }
+
+        // Calculate target position based on desired lane
+        Vector3 targetPosition = transform.position;
+
+        switch (desiredLane)
+        {
+            case 0:
+                targetPosition = new Vector3(-laneDistance, transform.position.y, transform.position.z);
+                break;
+            case 1:
+                targetPosition = new Vector3(0f, transform.position.y, transform.position.z);
+                break;
+            case 2:
+                targetPosition = new Vector3(laneDistance, transform.position.y, transform.position.z);
+                break;
+        }
+
+        float platformWidth = 1.6f; // Adjust this value according to your platform's width
+        targetPosition.x = Mathf.Clamp(targetPosition.x, -platformWidth / 2f, platformWidth / 2f);
+
+        // Smoothly move the player to the target position
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.1f);
+    }
     private void HandleMobileInput()
     {
         isGrounded = Physics.Raycast(transform.position,Vector3.down,0.1f,groundLayer);
@@ -113,6 +152,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("block detected");
             //breakAudio.Play();
             audioManager.PlaySfx(audioManager.breakWall);
+            ScoreManager.instance.AddScore();
         }
         else if (collision.gameObject.CompareTag("wrongBlock"))
         {
@@ -139,6 +179,8 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("set trigger kick");
             isRight = false;
             StartCoroutine(PlayRunAnimationAfterKick());
+            //ScoreManager.instance.AddScore();
+            //IncreasedSpeed();
            
         }
         else if (isWrong)
@@ -171,5 +213,12 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector3.zero;
         
         gameOver.SetActive(true);
+    }
+    public void IncreasedSpeed()//not using.........
+    {
+        if(ScoreManager.instance.score % 20 == 0 && moveSpeed<maxMoveSpeed)
+        {
+            moveSpeed += 0.5f;
+        }
     }
 }

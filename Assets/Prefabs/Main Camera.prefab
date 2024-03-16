@@ -46,7 +46,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 2827362640255668987}
   sfxSource: {fileID: 7401426811485084002}
-  background: {fileID: 8300000, guid: e0016dff0faf62e4381ea6adf6d52f39, type: 3}
+  background: {fileID: 8300000, guid: 1555836638cd34283a3780a19b58d4c6, type: 3}
   breakWall: {fileID: 0}
   death: {fileID: 0}
   winSound: {fileID: 8300000, guid: 0f84e7f14c1833a44aa99c5ff69a1e45, type: 3}

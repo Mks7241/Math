@@ -10,14 +10,28 @@ public class GroundTile : MonoBehaviour
     void Start()
     {
         groundSpawner = GameObject.FindAnyObjectByType<GroundSpawner>();
+        //SpawnQuestion();
+        StartCoroutine(WaitForQuestionPrefab());
     }
     private void OnTriggerExit(Collider other)
     {
-        groundSpawner.SpawnTile();
-        SpawnQuestion();
-        Destroy(gameObject,4);
+        if (other.CompareTag("Player"))
+        {
+            groundSpawner.SpawnTile();
+            //SpawnQuestion();
+            //wStartCoroutine(WaitForQuestionPrefab());
+            Destroy(gameObject, 10);
+        }
+        
     }
-    void SpawnQuestion()
+    public IEnumerator WaitForQuestionPrefab()
+    {
+       // Debug.Log("waiting for question prefab");
+        yield return new WaitForSeconds(2);
+        SpawnQuestion() ;
+        //Debug.Log("spawned");
+    }
+    public void SpawnQuestion()
     {
         Transform spawnPoint = transform.GetChild(2).transform;
         Instantiate(questionPrefab, spawnPoint.position,Quaternion.identity,transform);
