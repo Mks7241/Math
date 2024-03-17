@@ -18,14 +18,14 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         highScore = PlayerPrefs.GetInt("highScore",0);
-        scoreText.text = "Score: " + score.ToString();
+        scoreText.text = score.ToString();
         highScoreText.text = "HighScore: " + highScore.ToString();
         
     }
     public void AddScore()
     {
         score = score + 1;
-        scoreText.text = "Score: " + score.ToString();
+        scoreText.text = score.ToString();
        
         if (highScore < score)
         {
