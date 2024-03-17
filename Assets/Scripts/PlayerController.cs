@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     //Swipe lane
     private int desiredLane = 1;
     public float laneDistance = 5f;
+    //Revive 
+    public GameObject reviveScreen;
+    public int reviveLeft = 1;
+    public bool isRevived = false;
 
     private void Start()
     {
@@ -48,7 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             Die();
         }
-        else if(isDead)
+        if(isDead)
         {
             Die();
         }
@@ -157,8 +161,23 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("wrongBlock"))
         {
-            isWrong = true;
+            // isWrong = true;
             //deathAudio.Play();
+            if (reviveLeft == 1)
+            {
+                reviveScreen.SetActive(true);
+                moveSpeed = 0f;
+                reviveLeft -= 1;
+            }
+            else if (reviveLeft == 0)
+            {
+                StartCoroutine(PlayerDeathAnimation());
+            }
+            else if(isRevived)
+            {
+                isWrong = true;
+                isDead = true;
+            }
             audioManager.PlaySfx(audioManager.death);
         }
         else if(collision.gameObject.CompareTag("Finish")) 
@@ -187,6 +206,7 @@ public class PlayerController : MonoBehaviour
         else if (isWrong)
         {
             StartCoroutine(PlayerDeathAnimation());
+            
             
         }
     }
@@ -235,15 +255,14 @@ public class PlayerController : MonoBehaviour
     }
     public void OnRetry()
     {
-        animator.ResetTrigger("death");
-        
-        gameOver.SetActive(false);
-         Vector3 respawnPosition = transform.position;
-         isDead = false;
-         transform.position = new Vector3(respawnPosition.x,respawnPosition.y,respawnPosition.z - 3f);
+        Vector3 respawnPosition = transform.position;
+        //isDead = false;
+        transform.position = new Vector3(respawnPosition.x,respawnPosition.y,respawnPosition.z + 2f);
         moveSpeed = 3f;
-        animator.ResetTrigger("death");
-         animator.SetTrigger("run");
+       isRevived = true;
+        reviveScreen.SetActive(false);
+        //animator.ResetTrigger("death");
+         //animator.SetTrigger("run");
          
          
         
