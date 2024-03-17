@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
         //HandleInput();
         HandleSwipeInput();
         PlayerAnimation();
+        IncreasedSpeed();
         
 
     }
@@ -92,7 +93,7 @@ public class PlayerController : MonoBehaviour
         targetPosition.x = Mathf.Clamp(targetPosition.x, -platformWidth / 2f, platformWidth / 2f);
 
         // Smoothly move the player to the target position
-        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.1f);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.5f);
     }
     private void HandleMobileInput()
     {
@@ -216,9 +217,35 @@ public class PlayerController : MonoBehaviour
     }
     public void IncreasedSpeed()//not using.........
     {
-        if(ScoreManager.instance.score % 20 == 0 && moveSpeed<maxMoveSpeed)
+        // Calculate the distance traveled by the player
+        float distanceTraveled = transform.position.z;
+
+        // Define the distance interval at which speed should increase
+        float speedIncreaseInterval = 100.0f; // Adjust this value as needed
+
+        // Check if the player has traveled a multiple of the speed increase interval
+        if (Mathf.FloorToInt(distanceTraveled / speedIncreaseInterval) > Mathf.FloorToInt((distanceTraveled - moveSpeed * Time.deltaTime) / speedIncreaseInterval))
         {
-            moveSpeed += 0.5f;
+            // Increase the move speed if it's below the maximum move speed
+            if (moveSpeed < maxMoveSpeed)
+            {
+                moveSpeed += 0.5f;
+            }
         }
+    }
+    public void OnRetry()
+    {
+        animator.ResetTrigger("death");
+        
+        gameOver.SetActive(false);
+         Vector3 respawnPosition = transform.position;
+         isDead = false;
+         transform.position = new Vector3(respawnPosition.x,respawnPosition.y,respawnPosition.z - 3f);
+        moveSpeed = 3f;
+        animator.ResetTrigger("death");
+         animator.SetTrigger("run");
+         
+         
+        
     }
 }
