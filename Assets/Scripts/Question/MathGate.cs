@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using System.Linq.Expressions;
 
 public class MathGate : MonoBehaviour
 {
@@ -13,10 +14,13 @@ public class MathGate : MonoBehaviour
     public GameObject questionText;
     public GameObject correctBlockText;
     public GameObject wrongBlockText1;
-    public GameObject wrongBlockText2;  
+    public GameObject wrongBlockText2;
+    //scoreManager
+    ScoreManager scoreManager;
 
     void Start()
     {
+        scoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>();
         GenerateQuestion();
         AssignAnswers();
         SwapBlockPositions();
@@ -24,16 +28,32 @@ public class MathGate : MonoBehaviour
 
     void GenerateQuestion()
     {
-        // Generate random operands and operation
-        int operandA = Random.Range(1, 11);
-        int operandB = Random.Range(1, 11);
-       /* char operation = Random.Range(0, 3) switch
+        if (scoreManager.score < 20)
         {
-            0 => '+',
-            1 => '-',
-            _ => '*',
-        };*/
-       char operation = '+';
+            GenerateQuestionWithOperands(1, 5);
+        }
+        else if (scoreManager.score <40)
+        {
+            GenerateQuestionWithOperands(1, 11);
+        }
+        else if(scoreManager.score < 70)
+        {
+            GenerateQuestionWithOperands(1,21);
+        }
+        else
+        {
+
+            GenerateQuestionWithOperands(20, 30);
+        }
+
+
+    }
+    void GenerateQuestionWithOperands(int minOperand, int maxOperand)
+    {
+        // Generate random operands and operation
+        int operandA = Random.Range(minOperand, maxOperand + 1);
+        int operandB = Random.Range(minOperand, maxOperand + 1);
+        char operation = '+';
 
         // Display the math question
         questionText.GetComponent<TextMeshPro>().text = $"{operandA} {operation} {operandB} = ?";
@@ -93,12 +113,21 @@ public class MathGate : MonoBehaviour
 
     void SwapBlockPositions()
     {
-        // Randomly select one of the wrong blocks
-        Transform selectedWrongBlock = wrongBlocks[Random.Range(0,wrongBlocks.Length)];
+        int x = Random.Range(0, 10);
+       if (x == 0)
+        {
+            print("middle correctBlock");
+        }
+       else
+        {
+            // Randomly select one of the wrong blocks
+            Transform selectedWrongBlock = wrongBlocks[Random.Range(0, wrongBlocks.Length)];
 
-        // Swap positions of the correct block with the selected wrong block
-        Vector3 tempPosition = correctBlock.position;
-        correctBlock.position = selectedWrongBlock.position;
-        selectedWrongBlock.position = tempPosition;
+            // Swap positions of the correct block with the selected wrong block
+            Vector3 tempPosition = correctBlock.position;
+            correctBlock.position = selectedWrongBlock.position;
+            selectedWrongBlock.position = tempPosition;
+        }
+        
     }
 }

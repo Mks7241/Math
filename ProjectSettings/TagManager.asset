@@ -8,6 +8,7 @@ TagManager:
   - wrongBlock
   - Audio
   - MenuAudio
+  - ScoreManager
   layers:
   - Default
   - TransparentFX
