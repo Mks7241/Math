@@ -11,18 +11,12 @@ public class GameOver : MonoBehaviour
     public GameObject playerPref;
     PlayerController playerController;
     Animator animator;
-    public void retry()
+    public void Restart(int scene)
     {
-       SceneManager.LoadScene(1);
+       SceneManager.LoadScene(scene);
        //Vector3 respawnPosition = new Vector3 (player.transform.position.x,player.transform.position.y,player.transform.position.z);
-       
-
-       
-
-
-
-
     }
+    
     public void OnClickMenu()
     {
         SceneManager.LoadScene(0);

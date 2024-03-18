@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: cc421da483ed06c49933077a621bff25, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.062766925, g: 0.3153919, b: 0.97028893, a: 1}
+  m_IndirectSpecularColor: {r: 0.10800194, g: 0.06768358, b: 0.15426482, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -206,9 +206,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 926795873}
-        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
-        m_MethodName: retry
+      - m_Target: {fileID: 1763994910}
+        m_TargetAssemblyTypeName: RewardManager, Assembly-CSharp
+        m_MethodName: OnClickAdInterval
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -218,14 +218,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1763994910}
-        m_TargetAssemblyTypeName: RewardManager, Assembly-CSharp
-        m_MethodName: OnClickAdInterval
-        m_Mode: 1
+      - m_Target: {fileID: 926795873}
+        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -624,9 +624,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 926795873}
-        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
-        m_MethodName: retry
+      - m_Target: {fileID: 1763994910}
+        m_TargetAssemblyTypeName: RewardManager, Assembly-CSharp
+        m_MethodName: OnClickAdInterval
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -636,14 +636,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1763994910}
-        m_TargetAssemblyTypeName: RewardManager, Assembly-CSharp
-        m_MethodName: OnClickAdInterval
-        m_Mode: 1
+      - m_Target: {fileID: 926795873}
+        m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2406,7 +2406,7 @@ PrefabInstance:
         type: 3}
       propertyPath: breakWall
       value: 
-      objectReference: {fileID: 8300000, guid: ea992e1a102ca4141bdc4afdfd70b45b, type: 3}
+      objectReference: {fileID: 8300000, guid: ba518dc1d1ec94e49870122f8a10a156, type: 3}
     - target: {fileID: 8875000620883042995, guid: e727ede0f8f75184d9e868ab97a84766,
         type: 3}
       propertyPath: background
@@ -3398,7 +3398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31044358a2671c24ba89a39ba9dc77a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundTile: {fileID: 4568903088909610030, guid: 39e629fe78b16964d932554585606b30,
+  groundTile: {fileID: 4568903088909610030, guid: 75e826cb09c733544997e5f244903d54,
     type: 3}
 --- !u!1 &1995977615
 GameObject:

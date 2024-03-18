@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -8,7 +9,10 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI highScoreText;
    public int score = 0;
     int highScore = 0;
-    
+    //Playerpref key
+    private string highScoreKeyPrefix = "HighScore_Level_";
+
+
 
     private void Awake()
     {
@@ -17,7 +21,7 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        highScore = PlayerPrefs.GetInt("highScore",0);
+        LoadHighScore();
         scoreText.text = score.ToString();
         highScoreText.text = "HighScore: " + highScore.ToString();
         
@@ -29,9 +33,22 @@ public class ScoreManager : MonoBehaviour
        
         if (highScore < score)
         {
-            PlayerPrefs.SetInt("highScore", score);
+            highScore = score;
+            SaveHighScore();
             highScoreText.text = "HighScore" + highScore.ToString();
         }
+    }
+    private void SaveHighScore()
+    {
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        string highScoreKey = highScoreKeyPrefix + sceneIndex;
+        PlayerPrefs.SetInt(highScoreKey, highScore);
+    }
+    private void LoadHighScore()
+    {
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        string highScoreKey = highScoreKeyPrefix+sceneIndex;
+        highScore=PlayerPrefs.GetInt(highScoreKey, 0);
     }
     
     

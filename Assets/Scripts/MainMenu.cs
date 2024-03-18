@@ -20,6 +20,10 @@ public class MainMenu : MonoBehaviour
         menuAudio.PlayMenuClickSound(menuAudio.click);
         
     }
+    public void OnClickSoundlevel()
+    {
+        menuAudio.PlayMenuClickSound(menuAudio.click);
+    }
     public void OnClickOption()
     {
         optionMenu.SetActive(true);
