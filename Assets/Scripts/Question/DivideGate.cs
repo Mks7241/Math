@@ -69,8 +69,12 @@ public class DivideGate : MonoBehaviour
             }
            
         }
+        else
+        {
+            GenerateQuestion();
+        }
         // Display the math question
-        questionText.GetComponent<TextMeshPro>().text = $"{operandA} ÷ {operandB} = ?";
+        //questionText.GetComponent<TextMeshPro>().text = $"{operandA} ÷ {operandB} = ?";
     }
 
     void AssignAnswers()

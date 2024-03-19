@@ -1916,10 +1916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a2b2d6fef68f7458209aec621de5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appId: ca-app-pub-1385093244148841~5602672977
-  bannerId: ca-app-pub-7871577452585013/7712691609
-  interId: ca-app-pub-7871577452585013/6863532412
-  rewardedId: ca-app-pub-7871577452585013/1933697414
 --- !u!4 &950803132
 Transform:
   m_ObjectHideFlags: 0
@@ -4656,7 +4652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2117369271
 RectTransform:
   m_ObjectHideFlags: 0
