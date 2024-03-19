@@ -32,11 +32,11 @@ public class MultiGate : MonoBehaviour
         {
             GenerateQuestionWithOperands(1, 5);
         }
-        else if (scoreManager.score < 40)
+        else if (scoreManager.score < 70)
         {
             GenerateQuestionWithOperands(1, 11);
         }
-        else if (scoreManager.score < 70)
+        else if (scoreManager.score < 200)
         {
             GenerateQuestionWithOperands(1, 21);
         }
