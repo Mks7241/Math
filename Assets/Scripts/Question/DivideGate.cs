@@ -53,8 +53,22 @@ public class DivideGate : MonoBehaviour
         // Generate random operands and operation
         int operandA = Random.Range(minOperand, maxOperand + 1);
         int operandB = Random.Range(minOperand, maxOperand + 1);
-       
 
+        if (operandA >= operandB)
+        {
+            if (operandA / operandB >= 1)
+            {
+                if(operandA%operandB == 0)
+                {
+                    float debug = operandA / operandB;
+                    Debug.Log("a=" + operandA);
+                    Debug.Log("b=" + operandB);
+                    Debug.Log(debug);
+                    questionText.GetComponent<TextMeshPro>().text = $"{operandA} ÷ {operandB} = ?";
+                }
+            }
+           
+        }
         // Display the math question
         questionText.GetComponent<TextMeshPro>().text = $"{operandA} ÷ {operandB} = ?";
     }
