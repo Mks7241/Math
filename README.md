@@ -1,6 +1,6 @@
 # Description
-Hyper-casual endless runner.
-Navigate through three lanes.
+* Hyper-casual endless runner.
+* Navigate through three lanes.
 Each lane has walls with math questions (addition, subtraction, multiplication).
 Solve math problems quickly to break walls.
 Only correct answers break the walls and let you advance.
