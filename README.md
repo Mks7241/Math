@@ -8,3 +8,4 @@
 
 ![alt text](https://github.com/Mks7241/Math/blob/main/Assets/Images/image%20(13).png?raw=true)
 <img src="https://github.com/Mks7241/Math/blob/main/Assets/Images/image%20(14).png" width="1080" height="720"/>
+<img src="https://github.com/Mks7241/Math/blob/main/Assets/Images/image%20(17).png" width="1080" height="720"/>
