@@ -9,6 +9,7 @@ TagManager:
   - Audio
   - MenuAudio
   - ScoreManager
+  - display
   layers:
   - Default
   - TransparentFX

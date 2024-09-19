@@ -25,6 +25,7 @@ public class MathGate : MonoBehaviour
         AssignAnswers();
         SwapBlockPositions();
     }
+   
 
     void GenerateQuestion()
     {
@@ -57,7 +58,10 @@ public class MathGate : MonoBehaviour
 
         // Display the math question
         questionText.GetComponent<TextMeshPro>().text = $"{operandA} {operation} {operandB} = ?";
+        questionText.SetActive(false);
+
     }
+
 
     void AssignAnswers()
     {

@@ -57,6 +57,9 @@ public class SubGate : MonoBehaviour
 
         // Display the math question
         questionText.GetComponent<TextMeshPro>().text = $"{operandA} {operation} {operandB} = ?";
+        questionText.SetActive(false);
+
+
     }
 
     void AssignAnswers()

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 3f;
-    public float maxMoveSpeed = 5.0f;
+    private float moveSpeed = 3f;
+    private float baseMoveSpeed = 3f;
+    private float maxMoveSpeed = 5.0f;
     private Vector3 targetPosition; // Target position for player movement
     private Rigidbody rb;
     private Animator animator;
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         //targetPosition = transform.position;
-        transform.position = Vector3.zero;
+       // transform.position = Vector3.zero;
         rb = GetComponent<Rigidbody>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         rb.freezeRotation = true;
@@ -60,9 +61,47 @@ public class PlayerController : MonoBehaviour
         //HandleMobileInput();
         //HandleMobileInput();
         //HandleInput();
+        HandleKeyboardInput();
         HandleSwipeInput();
         PlayerAnimation();
         IncreasedSpeed();
+        AdjustAnimationSpeed();
+        
+
+    }
+    private void HandleKeyboardInput()
+    {
+        // Check for key input for lane changes
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                desiredLane = Mathf.Clamp(desiredLane + 1, 0, 2);
+            }
+            else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                desiredLane = Mathf.Clamp(desiredLane - 1, 0, 2);
+            }
+
+            // Calculate target position based on desired lane
+            Vector3 targetPosition = transform.position;
+
+            switch (desiredLane)
+            {
+                case 0:
+                    targetPosition = new Vector3(-laneDistance, transform.position.y, transform.position.z);
+                    break;
+                case 1:
+                    targetPosition = new Vector3(0f, transform.position.y, transform.position.z);
+                    break;
+                case 2:
+                    targetPosition = new Vector3(laneDistance, transform.position.y, transform.position.z);
+                    break;
+            }
+
+            float platformWidth = 1.6f; // Adjust this value according to your platform's width
+            targetPosition.x = Mathf.Clamp(targetPosition.x, -platformWidth / 2f, platformWidth / 2f);
+
+            // Directly move the player to the target position
+            transform.position = targetPosition;
         
 
     }
@@ -234,6 +273,11 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector3.zero;
         
         gameOver.SetActive(true);
+    }
+    private void AdjustAnimationSpeed()
+    {
+        // Adjust the animation speed based on the player's current move speed relative to the base speed
+        animator.speed = moveSpeed / baseMoveSpeed;
     }
     public void IncreasedSpeed()//not using.........
     {

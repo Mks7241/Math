@@ -57,6 +57,7 @@ public class MultiGate : MonoBehaviour
 
         // Display the math question
         questionText.GetComponent<TextMeshPro>().text = $"{operandA} x {operandB} = ?";
+        questionText.SetActive(false);
     }
 
     void AssignAnswers()

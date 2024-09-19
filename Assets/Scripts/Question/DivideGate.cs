@@ -65,6 +65,7 @@ public class DivideGate : MonoBehaviour
                     Debug.Log("b=" + operandB);
                     Debug.Log(debug);
                     questionText.GetComponent<TextMeshPro>().text = $"{operandA} ÷ {operandB} = ?";
+                    questionText.SetActive(false);
                 }
             }
            

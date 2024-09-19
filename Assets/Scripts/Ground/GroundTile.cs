@@ -11,7 +11,8 @@ public class GroundTile : MonoBehaviour
     {
         groundSpawner = GameObject.FindAnyObjectByType<GroundSpawner>();
         //SpawnQuestion();
-        StartCoroutine(WaitForQuestionPrefab());
+        // StartCoroutine(WaitForQuestionPrefab());
+        SpawnQuestion();
     }
     private void OnTriggerExit(Collider other)
     {
